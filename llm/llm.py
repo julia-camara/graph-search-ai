@@ -1,9 +1,13 @@
 import os
+from dotenv import load_dotenv
+
 import pandas as pd
 import re
+
 import ast
+from tqdm import tqdm
+
 import google.generativeai as genai
-from dotenv import load_dotenv
 
 # Carrega as variáveis do .env
 load_dotenv()
@@ -25,7 +29,7 @@ def process_llm():
 
     model = genai.GenerativeModel("models/gemini-1.5-flash")
 
-    for _, row in df.iterrows():
+    for _, row in tqdm(df.iterrows(), total=len(df), desc="Processando prompts com LLM"):
         prompt_id = row["prompt_id"]
         problem_type = row["problem_type"]
         prompt = row["prompt"]

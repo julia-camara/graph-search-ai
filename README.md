@@ -151,5 +151,3 @@ llm,parents,0.7,7,3,[2,6,10]
 ## Autoria
 
 Projeto desenvolvido pelos alunos de **Ciência da Computação** da **UFF** **Júlia Câmara** e **Pedro Albuquerque**, para a disciplina **Inteligência Artificial** ministrada pela professora **Aline Paes**.
-
-```
