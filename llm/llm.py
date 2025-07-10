@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+import time
 
 import pandas as pd
 import re
@@ -8,6 +9,7 @@ import ast
 from tqdm import tqdm
 
 import google.generativeai as genai
+from google.api_core.exceptions import ResourceExhausted
 
 # Carrega as variáveis do .env
 load_dotenv()
@@ -35,7 +37,16 @@ def process_llm():
         prompt = row["prompt"]
         expected = row["answer_nodes"].strip("[]").replace("'", "").split()
 
-        response = model.generate_content(prompt)
+        try:
+            response = model.generate_content(prompt)
+            time.sleep(5) # to avoid reaching rpm limit
+        except ResourceExhausted as e:
+            msg = str(e)
+            if "PerDay" in msg:
+                raise RuntimeError("Limite diário de requisições atingido. Execução encerrada.")
+            else:
+                raise e
+                
         response_text = response.text
         predicted = extract_final_answer(response_text)
 

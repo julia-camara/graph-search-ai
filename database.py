@@ -14,8 +14,8 @@ def download_and_prepare_dataset():
     # ============================ INÍCIO DO TRECHO DE TESTE ============================
     # seleciona 25 exemplos de cada tipo (bfs e parents)
     df = pd.concat([
-        df[df["problem_type"] == "parents"].head(25),
-        df[df["problem_type"] == "bfs"].head(25)
+        df[df["problem_type"] == "parents"].head(23),
+        df[df["problem_type"] == "bfs"].head(23)
     ]).reset_index(drop=True)
     # ============================ FIM DO TRECHO DE TESTE ==============================
 
